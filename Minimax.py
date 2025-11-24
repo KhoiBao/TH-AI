@@ -47,9 +47,13 @@ def actions(board):
 
 def result(board, action): 
     current_player = player(board)# the player(board) is dedicate in return which turn is it on the board, therefore we need to appoint it to another mask that based on what does the player(board) given
+    
     result_board = copy.deepcopy(board)
+    
     (i,j) = action
+    
     result_board[i][j] = current_player
+    
     return result_board
 
 def check_horizontal_winner(board): # check phuong ngang
@@ -78,9 +82,11 @@ def check_vertical_winner(board): # check phuong doc
     board_length = len(board) # length or size of the board
 
     for i in range(board_length): # repeat through every single column
+
         winner_val = board[0][i] # IF the winner is in the first box (1)
 
         for j in range(board_length): # begin repeat 
+
             if board[i][i] != winner_val:
                 winner_val = None
 
@@ -94,25 +100,36 @@ def check_vertical_winner(board): # check phuong doc
         if board[i][j] != winner_val:
             winner_val = None
         return winner_val
+    
+    return winner_val #(1) then return the winner value
+        
+
 
 def check_diagonal_winner(board):
+    
     winner_val = None
+    
     board_len = len(board)
+    
     winner_val = board[0][0]
+    
     for i in range(board_len):
+        
         if board[i][i] != winner_val:
             winner_val = None
+        
         if winner_val:
             return winner_val
         winner_val = board[0][board_len - 1]
+        
         for i in range(board_len):
             j = board_len - 1 - i
+        
         if board[i][j] != winner_val:
             winner_val = None
         return winner_val
+    
 def winner(board):
-# Returns the winner of the game, if there is one.
+# Returns the winner of the game, if there is one
     winner_val = check_horizontal_winner(board) or check_vertical_winner(board) or check_diagonal_winner(board) or None 
     return winner_val
-
-    
