@@ -1,4 +1,4 @@
-Comparison between Minimax (tradition) vs Minimax (with Alpha-Beta Prunning) based on Tic-tac-toe game
+## Comparison between Minimax (tradition) vs Minimax (with Alpha-Beta Prunning) based on Tic-tac-toe game
 
 Time Complexity:
 
@@ -6,7 +6,7 @@ Traditional Minimax ≈ O(b^d)
 
 Alpha–Beta ≈ O(b^(d/2)) in best case
 
-🧠 Algorithm Performance Comparison
+## 🧠 Algorithm Performance Comparison
 
 | **Algorithm**      | **Board Size** | **Nodes Expanded** | **Execution Time (s)** | **Optimal Move** |
 |--------------------:|:--------------:|-------------------:|-----------------------:|:----------------:|
@@ -15,7 +15,7 @@ Alpha–Beta ≈ O(b^(d/2)) in best case
 | Plain Minimax       | 4×4            | 22,943,984         | > 5 min                | (1, 1)           |
 | Alpha–Beta Pruning  | 4×4            | 114,239            | 1.20                   | (1, 1)           |
 
-(Numbers are illustrative; your measurements may vary slightly.)
+> (Numbers are illustrative; your measurements may vary slightly.)
 ---
 
 ### 📊 Summary
