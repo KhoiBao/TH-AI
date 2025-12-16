@@ -23,14 +23,15 @@ def player(board):
     count = 0
     for i in board:
         for j in i:
-                if j:
-                    count += 1
-                    if count  % 2 != 0: # shadowing the state that user is always the first players
-                        return ai 
-                    return user 
+            if j:
+                count += 1
+    if count  % 2 != 0: # shadowing the state that user is always the first players
+                return ai 
+    return user 
 
 # represent actions has been made
 def actions(board):
+
     result = set() 
     
     board_length = len(board) # get the whole board, row x column.
@@ -44,7 +45,7 @@ def actions(board):
                 result.add((i,j))
                 
     return result
-move = actions
+
 def result(board, action): 
     current_player = player(board)# the player(board) is dedicate in return which turn is it on the board, therefore we need to appoint it to another mask that based on what does the player(board) given
     
@@ -71,8 +72,9 @@ def check_horizontal_winner(board):
 
             if board[i][j] != winner_val: # if there is no winning flag (2)
                 winner_val = None # return none (2)
+                break # fixed: announce too early
 
-            if winner_val: # then if its in whether the j range of movement
+        if winner_val: # then if its in whether the j range of movement
                 return winner_val # give back the winner value
             
     return winner_val # (1) then return the winner value
@@ -91,24 +93,13 @@ def check_vertical_winner(board):
 
             if board[j][i] != winner_val: # check on vertical
                 winner_val = None
+                break # fixed : announce too early
 
         if winner_val:
 
             return winner_val
         
-        winner_val = board[0][board_length - 1]
-
-        for i in range(board_length):
-
-            j = board_length - 1 - i
-
-            if board[i][j] != winner_val:
-
-                winner_val = None
-
-        return winner_val
-    
-    return winner_val #(1) then return the winner value
+    return winner_val 
         
 
 # Check phuong cheo
@@ -116,31 +107,33 @@ def check_diagonal_winner(board):
     
     winner_val = None # not admitting winner yet therefore gave it as None
     
-    board_len = len(board) # length of the board
+    board_length = len(board) # length of the board
     
     winner_val = board[0][0] # assumed that the winner is on the first element of the board
     
-    for i in range(board_len):
+    for i in range(board_length):
         
         if board[i][i] != winner_val: # if the winner isn't at the first element of the board
             
             winner_val = None # there is no winner
         
-        if winner_val: # IF the winner is actually at the first element
+    if winner_val: # IF the winner is actually at the first element
 
-            return winner_val # return to user the value of the winner
+        return winner_val # return to user the value of the winner
         
-        winner_val = board[0][board_len - 1]
+    winner_val = board[0][board_length - 1]
         
-        for i in range(board_len):
+    for i in range(board_length):
 
-            j = board_len - 1 - i
+        j = board_length - 1 - i
         
-            if board[i][j] != winner_val:
+        if board[i][j] != winner_val:
 
-                winner_val = None
+            winner_val = None
+            break
 
-        return winner_val
+    return winner_val
+    
     
 def winner(board):
 # Returns the winner of the game, if there is one
@@ -201,7 +194,7 @@ def minValue(state):
 
         return utility(state)
     
-    v = math.inf
+    v = math.inf # Min need to be as large as possible due to "Minimize"
     
     for action in actions(state):
 
@@ -211,25 +204,38 @@ def minValue(state):
 
 #Returns the optimal action for the current player on the board.
 def minimax(board):
+
     current_player = player(board)
 
     if current_player == X:
+
         min = -math.inf
-        move = None
+
         for action in actions(board):
+
             check = minValue(result(board, action))
+
             if check > min:
+
                 min = check
+
                 move = action
     else:
         max = math.inf
-        move = None
+
         for action in actions(board):
+
             check = maxValue(result(board, action))
+
             if check < max:
+
                 best_val = check
+
                 move = action
-    return move
+                
+                return move
+
+
 if __name__ == "__main__":
     board = initial_state()
     ai_turn = False
@@ -260,6 +266,7 @@ if __name__ == "__main__":
                 board = result(board, move)
                 print("AI moved:")
                 print(numpy.array(board))
+
             # User's turn
             elif current_player == user and not game_over:
                 print("Enter the position to move (row,col)")
