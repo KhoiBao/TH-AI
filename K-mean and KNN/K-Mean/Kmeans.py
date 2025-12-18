@@ -16,8 +16,9 @@ plt.xlabel("x")
 plt.ylabel("y")
 plt.plot(X[:, 0], X[:, 1], "bo", markersize=5)
 
-#plt.plot()
-#plt.show()
+plt.plot()
+plt.show()
+
 
 #Khởi tạo tâm cụm 0 với số n_cluster = 3
 def kmeans_init_centers(X, n_cluster):
@@ -125,4 +126,5 @@ centers, labels, times = kmeans(init_centers, init_labels, X, n_cluster)
 
 print('Done! KMeans has converged after', times, 'times')
 print(centers)
+
 
